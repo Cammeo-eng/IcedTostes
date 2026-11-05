@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cafés Gelados · TOSTES&amp;CO</title>
+  <meta name="description" content="Cafés gelados da TOSTES&CO, Fazenda Rio Grande (PR): lattes, matchás e coffees.">
+  <meta name="theme-color" content="#F5EDE1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Alfa+Slab+One&family=Cherry+Bomb+One&family=DM+Serif+Display&family=Darumadrop+One&family=Fraunces:wght@700&family=Inter:wght@400;500;600&family=Pacifico&family=Pinyon+Script&family=Shippori+Mincho:wght@700&family=Sniglet:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-tema="lattes">
+
+  <!-- Fundos por categoria (o novo se espalha sobre o anterior) -->
+  <div class="bg" aria-hidden="true">
+    <div class="bgl" data-cat="lattes"><div class="tex"></div></div>
+    <div class="bgl" data-cat="matchas"><div class="tex"></div></div>
+    <div class="bgl" data-cat="coffees"><div class="tex"></div></div>
+    <div class="bgl" data-cat="chai"><div class="tex"></div></div>
+    <div class="tint" id="tintA"></div>
+    <div class="tint" id="tintB"></div>
+  </div>
+
+  <div class="app">
+    <header class="topo">
+      <a class="logo" href="./" aria-label="TOSTES, início">TOSTES</a>
+    </header>
+
+    <nav class="seg" id="cats" aria-label="Categorias">
+      <span class="pill" id="pill"></span>
+    </nav>
+
+    <main class="stage" id="stage">
+      <button class="seta esq" id="prev" type="button" aria-label="Bebida anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+
+      <div class="conteudo">
+        <div class="copo-wrap"><div class="copo-box" id="copo"></div></div>
+        <div class="info" id="info" aria-live="polite">
+          <h1 class="nome" id="nome"></h1>
+          <p class="preco" id="preco"></p>
+          <p class="frase" id="frase"></p>
+          <p class="ingred" id="ingred"></p>
+        </div>
+      </div>
+
+      <button class="seta dir" id="next" type="button" aria-label="Próxima bebida">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </main>
+
+    <footer class="rodape">
+      <div class="seg seg-acucar" id="acucar" role="group" aria-label="Nível de açúcar">
+        <span class="pill" id="pill2"></span>
+      </div>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+    </footer>
+  </div>
+
+  <script src="bebidas.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
