@@ -1,66 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Cafés Gelados · TOSTES&amp;CO</title>
-  <meta name="description" content="Cafés gelados da TOSTES&CO, Fazenda Rio Grande (PR): lattes, matchás e coffees.">
-  <meta name="theme-color" content="#F5EDE1">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Alfa+Slab+One&family=Cherry+Bomb+One&family=DM+Serif+Display&family=Darumadrop+One&family=Fraunces:wght@700&family=Inter:wght@400;500;600&family=Pacifico&family=Pinyon+Script&family=Shippori+Mincho:wght@700&family=Sniglet:wght@800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cafés Gelados TOSTES</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Cafés e matchas gelados da TOSTES&amp;CO, em Fazenda Rio Grande.">
+<meta name="theme-color" content="#E9D7C0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Imperial+Script&family=Baloo+2:wght@800&family=Playball&family=Be+Vietnam+Pro:wght@500;800&family=Bree+Serif&family=Cookie&family=Lilita+One&family=Yeseva+One&family=Paytone+One&family=Chewy&family=Cormorant+Garamond:wght@700&family=Dancing+Script:wght@700&family=Great+Vibes&family=Fredoka:wght@700&family=Gloock&family=Playfair+Display:wght@800&family=Archivo+Black&family=Lobster&family=Yellowtail&family=Bebas+Neue&family=Shrikhand&family=Syne:wght@800&family=Unbounded:wght@300;700&family=Alfa+Slab+One&family=Cherry+Bomb+One&family=DM+Serif+Display&family=Darumadrop+One&family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&family=Pacifico&family=Pinyon+Script&family=Shippori+Mincho:wght@700&family=Sniglet:wght@400;800&display=swap">
+<link rel="stylesheet" href="styles.css">
 </head>
-<body data-tema="lattes">
+<body>
+<div class="bg a" id="bgA" aria-hidden="true"></div>
+<div class="bg b" id="bgB" aria-hidden="true"></div>
+<div class="paper" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
 
-  <!-- Fundos por categoria (o novo se espalha sobre o anterior) -->
-  <div class="bg" aria-hidden="true">
-    <div class="bgl" data-cat="lattes"><div class="tex"></div></div>
-    <div class="bgl" data-cat="matchas"><div class="tex"></div></div>
-    <div class="bgl" data-cat="coffees"><div class="tex"></div></div>
-    <div class="bgl" data-cat="chai"><div class="tex"></div></div>
-    <div class="tint" id="tintA"></div>
-    <div class="tint" id="tintB"></div>
-  </div>
+<div class="app" id="app">
+  <header class="top">
+    <a class="logo" href="#" aria-label="TOSTES&amp;CO">TOSTES<small>CAFÉS GELADOS</small></a>
+    <nav class="seg" id="cats" role="tablist" aria-label="Categorias"></nav>
+    <button class="cart" id="cartBtn" type="button" aria-label="Abrir pedido">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="ct" id="cartTxt"></span>
+    </button>
+  </header>
 
-  <div class="app">
-    <header class="topo">
-      <a class="logo" href="./" aria-label="TOSTES, início">TOSTES</a>
-    </header>
-
-    <nav class="seg" id="cats" aria-label="Categorias">
-      <span class="pill" id="pill"></span>
-    </nav>
-
-    <main class="stage" id="stage">
-      <button class="seta esq" id="prev" type="button" aria-label="Bebida anterior">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  <main class="main">
+    <div class="stage" id="stage" aria-roledescription="carrossel" aria-label="Bebidas">
+      <div class="ring" id="ring"></div>
+      <svg class="leads" id="leads" aria-hidden="true"></svg>
+      <ul class="tags" id="tags" aria-label="Ingredientes"></ul>
+      <div class="soon" aria-hidden="true"><b id="soonTxt"></b></div>
+      <button class="nav prev" id="prev" type="button" aria-label="Bebida anterior">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6"/></svg>
       </button>
-
-      <div class="conteudo">
-        <div class="copo-wrap"><div class="copo-box" id="copo"></div></div>
-        <div class="info" id="info" aria-live="polite">
-          <h1 class="nome" id="nome"></h1>
-          <p class="preco" id="preco"></p>
-          <p class="frase" id="frase"></p>
-          <p class="ingred" id="ingred"></p>
-        </div>
-      </div>
-
-      <button class="seta dir" id="next" type="button" aria-label="Próxima bebida">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      <button class="nav next" id="next" type="button" aria-label="Próxima bebida">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m7.5 4 6 6-6 6"/></svg>
       </button>
-    </main>
-
-    <footer class="rodape">
-      <div class="seg seg-acucar" id="acucar" role="group" aria-label="Nível de açúcar">
-        <span class="pill" id="pill2"></span>
-      </div>
       <div class="dots" id="dots" aria-hidden="true"></div>
-    </footer>
-  </div>
+    </div>
 
-  <script src="bebidas.js"></script>
-  <script src="app.js"></script>
+    <section class="info anim" id="info" aria-live="polite">
+      <div class="tag" id="tag"></div>
+      <h1 class="name" id="name"></h1>
+      <div class="buy" id="buy">
+        <div class="price" id="price"></div>
+        <button class="add" id="add" type="button">
+          <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5v11M1.5 7h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span>Adicionar</span>
+        </button>
+      </div>
+      <p class="phrase" id="phrase"></p>
+      <div class="hints">
+      <button class="peek" id="peek" type="button" aria-expanded="false">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.2" fill="currentColor"/><circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span id="peekTxt">Toque no copo para ver cada camada</span>
+      </button>
+      <button class="story" id="story" type="button" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.6A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.4C19 15.6 12 20 12 20Z" fill="currentColor"/></svg>
+        <span>A história deste latte</span>
+      </button>
+      </div>
+      <div class="sugar-wrap" id="optWrap" hidden><div class="seg small" id="opt" role="group"></div></div>
+      <div class="sugar-wrap" id="sugarWrap" hidden><div class="seg small" id="sugar" role="group" aria-label="Açúcar"></div></div>
+    </section>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+  <div class="grab"></div>
+  <div class="sheet-h">
+    <h2 id="cartTitle">Seu pedido</h2>
+    <button class="x" id="closeCart" type="button" aria-label="Fechar pedido">
+      <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <ul class="items" id="items"></ul>
+  <form class="form" id="form" onsubmit="return false">
+    <label for="cliente">Seu nome<input id="cliente" type="text" autocomplete="given-name" placeholder="Como chamamos você?"></label>
+    <div style="display:grid;gap:6px">
+      <span style="font-size:13px;font-weight:600;color:#4A3426">Como vai ser</span>
+      <div class="mode" id="mode">
+        <button type="button" data-m="balcao" aria-pressed="true">Retirar no balcão</button>
+        <button type="button" data-m="mesa" aria-pressed="false">Comer na mesa</button>
+      </div>
+    </div>
+    <label for="mesa" id="mesaWrap" hidden>Mesa<select id="mesa"></select></label>
+    <label for="obs">Observação (opcional)<textarea id="obs" placeholder="Ex.: menos doce, leite sem lactose, pouco gelo"></textarea></label>
+    <div class="sum"><span>Total</span><b id="total">R$ 0,00</b></div>
+    <a class="send" id="send" target="_blank" rel="noopener" aria-disabled="true">Enviar pedido pelo WhatsApp</a>
+    <p class="hint" id="hint"></p>
+  </form>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<div class="note-wrap" id="noteWrap" hidden>
+  <article class="note" id="note" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
+    <button class="x note-x" id="noteClose" type="button" aria-label="Fechar">
+      <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <div class="note-hearts" aria-hidden="true"><i></i><i></i><i></i></div>
+    <h2 id="noteTitle"></h2>
+    <div class="note-body" id="noteBody"></div>
+    <p class="note-sign" id="noteSign"></p>
+  </article>
+</div>
+
+<div class="intro" id="intro" hidden>
+  <canvas id="introFx" aria-hidden="true"></canvas>
+  <div class="intro-c">
+    <svg class="flake" viewBox="0 0 40 40" aria-hidden="true"><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M20 4v32M6.1 12l27.8 16M6.1 28l27.8-16"/><path d="M16 7l4 4 4-4M16 33l4-4 4 4M7 17.5l5.5-1.5-1.5-5.5M33 22.5l-5.5 1.5 1.5 5.5M7 22.5l5.5 1.5-1.5 5.5M33 17.5l-5.5-1.5 1.5-5.5"/></g></svg>
+    <b>TOSTES</b>
+    <h2 id="introTitle">Brrr! Você chegou ao lado mais fresquinho da Tostes</h2>
+    <p>Pega um casaquinho e escolhe o seu gelado.</p>
+  </div>
+  <button class="skip" id="skip" type="button">Entrar no frio</button>
+</div>
+
+<script src="bebidas.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
